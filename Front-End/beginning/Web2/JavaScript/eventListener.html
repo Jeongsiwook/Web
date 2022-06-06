@@ -1,0 +1,38 @@
+// property listener
+<body>
+    <input type="button" id="_target" value="button" />
+<script>
+    var t = document.getElementById('_target');
+    t.onclick = function(event){
+        alert('Hello world, '+event.target.value)
+    }
+</script>
+   
+// addEventListener, 하나의 이벤트 대상에 복수의 동일 이벤트 타입 리스너를 등록할 수 있음    
+<input type="button" id="target" value="button" />
+<script>
+    var t = document.getElementById('target');
+    t.addEventListener('click', function(event){
+        alert('Hello world, '+event.target.value);
+    });
+</script>
+    
+// 복수의 엘리먼트에 하나의 리스너를 등록해서 재사용할 수 있음
+<input type="button" id="target1" value="button1" />
+<input type="button" id="target2" value="button2" />
+<script>
+    var t1 = document.getElementById('target1');
+    var t2 = document.getElementById('target2');
+    function btn_listener(event){
+        switch(event.target.id){
+            case 'target1':
+                alert(1);
+                break;
+            case 'target2':
+                alert(2);
+                break;
+        }
+    }
+    t1.addEventListener('click', btn_listener);
+    t2.addEventListener('click', btn_listener);
+</script>    

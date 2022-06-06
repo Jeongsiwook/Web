@@ -1,0 +1,73 @@
+/*
+- JSON은 JavaScript Object Notation의 약자로 JavaScript에서 객체를 만들 때 사용하는 표현식
+- 이 표현식은 사람도 이해하기 쉽고 기계도 이해하기 쉬우면서 데이터의 용량이 작음
+- 이런 이유로 최근에는 JSON이 XML을 대체해서 설정의 저장이나 데이터를 전송 등에 많이 사용
+- JSON.parse(): 인자로 전달된 문사열을 자바스크립트의 데이터로 변환
+- JSON.stringify(): 인자로 전달된 자바스크립트의 데이터를 문자열로 변환
+*/
+
+// time2.php
+<?php
+$timezones = ["Asia/Seoul", "America/New_York"];
+header('Content-Type: application/json');
+echo json_encode($timezones);
+?>
+
+// 배열을 받아서 그대로 사용
+<p id="timezones"></p>
+<input type="button" id="execute" value="execute" />
+<script>
+document.querySelector('input').addEventListener('click', function(event){
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', './time2.php');
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState === 4 && xhr.status === 200){
+            var _tzs = xhr.responseText;
+            // var tzs = _tzs.split(',')
+            var tzs = JSON.parse(_tzs);
+            var _str = '';
+            for(var i = 0; i< tzs.length; i++){
+                _str += '<li>'+tzs[i]+'</li>';
+            }
+            _str = '<ul>'+_str+'</ul>';
+            document.querySelector('#timezones').innerHTML = _str;
+        }
+    }
+    xhr.send(); 
+}); 
+</script> 
+
+
+// time3.php
+<?php
+$data = json_decode(file_get_contents('php://input'), true);
+$d1 = new DateTime;
+$d1->setTimezone(new DateTimezone($data['timezone']));
+echo $d1->format($data['format']);
+?>
+
+// 서버로 데이터 전송
+<p>time : <span id="time"></span></p>
+<select id="timezone">
+    <option value="Asia/Seoul">asia/seoul</option>
+    <option value="America/New_York">America/New_York</option>
+</select>
+<select id="format">
+    <option value="Y-m-d H:i:s">Y-m-d H:i:s</option>
+    <option value="Y-m-d">Y-m-d</option>
+</select>
+<input type="button" id="execute" value="execute" />
+<script>
+document.querySelector('input').addEventListener('click', function(event){
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', './time3.php');
+    xhr.onreadystatechange = function(){
+        document.querySelector('#time').innerHTML = xhr.responseText;
+    }
+    var data = new Object();
+    data.timezone = document.getElementById('timezone').value;
+    data.format = document.getElementById('format').value;
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify(data)); 
+});
+</script>

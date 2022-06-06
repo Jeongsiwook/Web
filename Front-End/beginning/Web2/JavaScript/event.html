@@ -1,0 +1,91 @@
+<input type="button" id="pure" value="pure" />
+<input type="button" id="jquery" value="jQuery" />
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    // 순수하게 구현했을 때
+    var target = document.getElementById('pure');
+    if(target.addEventListener){
+        target.addEventListener('click', function(event){
+            alert('pure');
+        });
+    } else {
+        target.attachEvent('onclick', function(event){
+            alert('pure');
+        });
+    }
+ 
+    // jQuery를 사용했을 때
+    /* .on( events [, selector ] [, data ], handler(eventObject) )
+    event : 등록하고자 하는 이벤트 타입을 지정한다. (예: "click")
+    selector : 이벤트가 설치된 엘리먼트의 하위 엘리먼트를 이벤트 대상으로 필터링함
+    data : 이벤트가 실행될 때 핸들러로 전달될 데이터를 설정함
+    handler : 이벤트 핸들러 함수
+    */
+    $('#jquery').on('click', function(event){ // 
+        alert('jQuery');
+    })
+</script>
+
+// selector
+<ul>
+    <li><a href="#">HTML</a></li>
+    <li><a href="#">CSS</a></li>
+    <li><a href="#">JavaScript</a></li>
+</ul>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    $('ul').on('click','a, li', function(event){
+        console.log(this.tagName);
+    })
+</script>
+
+// last binding: 존재하지 않는 엘리먼트에도 이벤트를 등록할 수 있음
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    $('body').on('click','a, li', function(event){ // 'ul'을 'body'로 바꿈, ul은 아직 존재하지 않기 때문
+        console.log(this.tagName);
+    })
+</script>
+<ul>
+    <li><a href="#">HTML</a></li>
+    <li><a href="#">CSS</a></li>
+    <li><a href="#">JavaScript</a></li>
+</ul>
+
+// 다중 바인딩
+<input type="text" id="target" />
+<p id="status"></p>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    var handler: function(e) {
+        $('#status').html(e.type);
+    }
+    $('#target').on('focus', handler).on('blur', handler);
+    
+//     $('#target').on(
+//         {
+//             'focus': handler,
+//             'blur': handler
+//         }
+//     )
+    
+//     $('#target').on('focus blur', function(e){
+//         $('#status').html(e.type);
+//     })
+</script>
+
+// 삭제
+<input type="text" id="target"></textarea>
+<input id="remove"  type="button" value="remove" />
+<p id="status"></p>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+  var handler = function(e){
+    $('#status').text(e.type+Math.random());
+  };
+  $('#target').on('focus blur', handler)
+  $('#remove').on('click' , function(e){
+    $('#target').off('focus blur', handler); // handler를 함수로 쓰는 이벤트만이 삭제
+    console.log(32);
+  })
+</script>

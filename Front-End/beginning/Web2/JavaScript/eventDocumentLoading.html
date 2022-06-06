@@ -1,0 +1,43 @@
+// body 끝에 위치시키는 방법
+<html>
+    <head>
+        
+    </head>
+    <body>
+        <p id="target">Hello</p>
+        <script>
+          var t = document.getElementById('target');
+          console.log(t);
+        </script>
+    </body>
+</html>
+
+// load 이벤트를 사용하는 방법, 단점이 느림
+<head>
+    <script>
+        window.addEventListener('load', function(){
+            var t = document.getElementById('target');
+            console.log(t);
+        })
+    </script>
+</head>
+<body>
+    <p id="target">Hello</p>
+</body>
+
+// DOMContentLoaded를 사용하는 방법, 이미지 다운을 기다리지 않음
+<html>
+    <head>
+        <script>
+            window.addEventListener('load', function(){
+                console.log('load');
+            })
+            window.addEventListener('DOMContentLoaded', function(){
+                console.log('DOMContentLoaded');
+            })
+        </script>
+    </head>
+    <body>
+        <p id="target">Hello</p>
+    </body>
+</html>

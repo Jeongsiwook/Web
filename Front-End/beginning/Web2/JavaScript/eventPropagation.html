@@ -1,0 +1,48 @@
+// capturing: 이벤트가 부모에서부터 발생해서 자식으로 전파
+<html>
+    <head>
+        <style>
+            html{border:5px solid red;padding:30px;}
+            body{border:5px solid green;padding:30px;}
+            fieldset{border:5px solid blue;padding:30px;}
+            input{border:5px solid black;padding:30px;}
+        </style>
+    </head>
+    <body>
+        <fieldset>
+            <legend>event propagation</legend>
+            <input type="button" id="target" value="target">          
+        </fieldset>
+        <script>
+        function handler(event){
+            var phases = ['capturing', 'target', 'bubbling'] // 캡처링 1, 말단은 2, 버블링은 3
+            console.log(event.target.nodeName, this.nodeName, phases[event.eventPhase-1]);
+        }
+        document.getElementById('target').addEventListener('click', handler, true); // INPUT HTML capturing
+        document.querySelector('fieldset').addEventListener('click', handler, true); // INPUT BODY capturing
+        document.querySelector('body').addEventListener('click', handler, true); // INPUT FIELDSET capturing
+        document.querySelector('html').addEventListener('click', handler, true);  // INPUT INPUT capturing
+        </script>
+    </body>
+</html>
+
+// bubbling: 자식부터 부모로 이벤트가 전파되는 것
+document.getElementById('target').addEventListener('click', handler, false); // INPUT INPUT bubbling
+document.querySelector('fieldset').addEventListener('click', handler, false); // INPUT FIELDSET bubbling
+document.querySelector('body').addEventListener('click', handler, false); // INPUT BODY bubbling
+document.querySelector('html').addEventListener('click', handler, false); // INPUT HTML bubbling
+
+// 전파 가로막기(body)
+function handler(event){
+    var phases = ['capturing', 'target', 'bubbling']
+    console.log(event.target.nodeName, this.nodeName, phases[event.eventPhase-1]);
+}
+function stophandler(event){
+    var phases = ['capturing', 'target', 'bubbling']
+    console.log(event.target.nodeName, this.nodeName, phases[event.eventPhase-1]);
+    event.stopPropagation();
+}
+document.getElementById('target').addEventListener('click', handler, false);
+document.querySelector('fieldset').addEventListener('click', handler, false);
+document.querySelector('body').addEventListener('click', stophandler, false);
+document.querySelector('html').addEventListener('click', handler, false);

@@ -1,0 +1,81 @@
+// 노드 생성 및 변경, inner는 자신을 제외한 자식들만
+<ul id="target">
+    <li>HTML</li>
+    <li>CSS</li>
+</ul>
+<input type="button" onclick="get();" value="get" />
+<input type="button" onclick="set();" value="set" />
+<script>
+    function get(){
+        var target = document.getElementById('target');
+        alert(target.innerHTML);
+    }
+    function set(){
+        var target = document.getElementById('target');
+        target.innerHTML = "<li>JavaScript Core</li><li>BOM</li><li>DOM</li>";
+    }
+</script>
+
+// 노드 생성 및 변경, outer는 자신을 포함한 전체
+<ul id="target">
+    <li>HTML</li>
+    <li>CSS</li>
+</ul>
+<input type="button" onclick="get();" value="get" />
+<input type="button" onclick="set();" value="set" />
+<script>
+    function get(){
+        var target = document.getElementById('target');
+        alert(target.outerHTML);
+    }
+    function set(){
+        var target = document.getElementById('target');
+        target.outerHTML = "<ol><li>JavaScript Core</li><li>BOM</li><li>DOM</li></ol>";
+    }
+</script>
+
+// text를 리턴 및 text 그대로 추가
+<ul id="target">
+    <li>HTML</li>
+    <li>CSS</li>
+</ul>
+<input type="button" onclick="get();" value="get" />
+<input type="button" onclick="set();" value="set" />
+<script>
+    function get(){
+        var target = document.getElementById('target');
+        alert(target.innerText);
+    }
+    function set(){
+        var target = document.getElementById('target');
+        target.innerText = "<li>JavaScript Core</li><li>BOM</li><li>DOM</li>";
+    }
+</script>
+
+// 더 정교하게 하는 방법, insertAdjacentHtml(위치, 추가할 것)
+<ul id="target">
+    <li>CSS</li>
+</ul>
+<input type="button" onclick="beforebegin();" value="beforebegin" />
+<input type="button" onclick="afterbegin();" value="afterbegin" />
+<input type="button" onclick="beforeend();" value="beforeend" />
+<input type="button" onclick="afterend();" value="afterend" />
+<script>
+    function beforebegin(){
+        var target = document.getElementById('target');
+        target.insertAdjacentHTML('beforebegin','<h1>Client Side</h1>');
+    }
+    function afterbegin(){
+        var target = document.getElementById('target');
+        target.insertAdjacentHTML('afterbegin','<li>HTML</li>');
+    }
+    function beforeend(){
+        var target = document.getElementById('target');
+        target.insertAdjacentHTML('beforeend','<li>JavaScript</li>');
+    }
+    function afterend(){
+        var target = document.getElementById('target');
+        target.insertAdjacentHTML('afterend','<h1>Server Side</h1>');
+    }
+</script>
+

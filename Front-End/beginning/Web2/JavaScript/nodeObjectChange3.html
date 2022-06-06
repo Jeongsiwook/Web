@@ -1,0 +1,87 @@
+// 추가
+<div class="target">
+    content1
+</div>
+ 
+<div class="target">
+    content2
+</div> 
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    $('.target').before('<div>before</div>'); // 형제로 앞
+    $('.target').after('<div>after</div>'); // 형제로 뒤
+    $('.target').prepend('<div>prepend</div>'); //자식으로 앞
+    $('.target').append('<div>append</div>'); // 자식으로 뒤
+</script>
+
+// 제거
+<div class="target" id="target1">
+    target 1
+</div> 
+<div class="target" id="target2">
+    target 2
+</div> 
+<input type="button" value="remove target 1" id="btn1" />
+<input type="button" value="empty target 2" id="btn2" />
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    $('#btn1').click(function(){
+        $('#target1').remove(); // 선택된 엘리먼트를 제거
+    })
+    $('#btn2').click(function(){
+        $('#target2').empty(); // 선택된 엘리먼트의 텍스트 노드를 제거
+    })
+</script>
+
+// 교체
+<div class="target" id="target1">
+    target 1
+</div> 
+<div class="target" id="target2">
+    target 2
+</div> 
+<input type="button" value="replaceAll target 1" id="btn1" />
+<input type="button" value="replaceWith target 2" id="btn2" />
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    $('#btn1').click(function(){
+        $('<div>replaceAll</div>').replaceAll('#target1'); // 제어 대상을 인자로 전달
+    })
+    $('#btn2').click(function(){
+        $('#target2').replaceWith('<div>replaceWith</div>'); // 제어 대상을 먼저 지정하는 것
+    })
+</script>
+
+// 복사
+<div class="target" id="target1">
+    target 1
+</div> 
+<div class="target" id="target2">
+    target 2
+</div> 
+<div id="source">source</div> 
+<input type="button" value="clone replaceAll target 1" id="btn1" />
+<input type="button" value="clone replaceWith target 2" id="btn2" />
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    $('#btn1').click(function(){
+        $('#source').clone().replaceAll('#target1');
+    })
+    $('#btn2').click(function(){
+        $('#target2').replaceWith($('#source').clone());
+    })
+</script>
+
+// 이동
+<div class="target" id="target1">
+    target 1
+</div> 
+<div id="source">source</div>
+ 
+<input type="button" value="append source to target 1" id="btn1" />
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    $('#btn1').click(function(){
+        $('#target1').append($('#source'));
+    })
+</script>

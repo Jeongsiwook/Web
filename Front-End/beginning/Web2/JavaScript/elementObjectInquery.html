@@ -1,0 +1,21 @@
+<ul>
+    <li class="marked">html</li>
+    <li>css</li>
+    <li id="active">JavaScript
+        <ul>
+            <li>JavaScript Core</li>
+            <li class="marked">DOM</li>
+            <li class="marked">BOM</li>
+        </ul>
+    </li>
+</ul>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    // 밑에 3개가 같다.
+    $( ".marked", "#active").css( "background-color", "red" );
+    $( "#active .marked").css( "background-color", "red" );
+    $( "#active").find('.marked').css( "background-color", "red" );
+  
+    // 체인을 끊기지 않고 사용하는 방법
+    $('#active').css('color','blue').find('.marked').css( "background-color", "red" );
+</script>

@@ -171,3 +171,62 @@ responsive design에 유리.
   margin: 0;
 }
 ```
+
+## styled-components
+
+`$ yarn add styled-components`
+
+```js
+import styled from 'styled-components';
+```
+
+JS 파일 안에 스타일을 정의하고, React 컴포넌트처럼 활용.
+JS 코드와 긴밀히 연계하여 다양한 코드를 작성할 수 있음.  
+별도의 CSS 파일을 만들지 않고 하나의 파일 안에 스타일을 관리하고 싶을 때 유리.  
+스타일 코드와 컴포넌트 코드 간의 결합을 나누고 싶을 때 유리.
+
+```js
+const Container = styled.div`
+  width: 400px;
+`;
+const Button = styled.button`
+  background: ${({ clicked }) => (clicked ? 'ooranged' : 'labender')};
+  color: ${({ clicked }) => (clicked ? 'lavender' : 'oranged')}
+  border: none;
+`;
+
+function Sample() {
+  const [clicked, setClicked] = useState(false);
+  return (
+    <Container>
+      <Button onClick={() => setClicked((bool) => !bool)} clicked={clicked}>
+        Submit
+      </Button>
+    </Container>
+  );
+}
+```
+
+### Tip
+
+```js
+import styled, { css } from 'styled-components';
+
+const textError = styled.css`
+  color: red;
+`;
+
+const FormLabel = styled.label`
+  display: block;
+  ${(props) => props.error && textError}
+`;
+
+const RegisterForm() {
+  return (
+    <FormLabel
+      error={nameInputStatus === InputStatus.ERROR}
+    > 이름
+    </FormLabel>
+  )
+}
+```

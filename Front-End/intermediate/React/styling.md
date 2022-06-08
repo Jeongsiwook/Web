@@ -1,4 +1,4 @@
-# 01. React 앱에서의 스타일링
+# React 앱에서의 스타일링
 
 ## 좋은 앱을 만들려면?
 
@@ -171,6 +171,7 @@ responsive design에 유리.
   margin: 0;
 }
 ```
+
 
 ## styled-components
 

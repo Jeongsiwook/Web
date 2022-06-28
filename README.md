@@ -20,5 +20,5 @@
 ### DB
 - MongoDB
 
-### 배포
+### deploy
 - Docker

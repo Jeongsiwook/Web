@@ -1,8 +1,7 @@
 # Web 
 전체적인 웹 개발 관련 정리
 
-## 구조
-### Front-End
+## Front-End
 - HTML
 - CSS
   - BootStrap
@@ -13,12 +12,12 @@
 - React.js
 - Bundler
 
-### Back-End
+## Back-End
 - Express.js
 - Node.js
 
-### DB
+## DB
 - MongoDB
 
-### deploy
+## deploy
 - Docker

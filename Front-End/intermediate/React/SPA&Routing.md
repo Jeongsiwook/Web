@@ -225,7 +225,7 @@ function App() {
   return (
     <BrowserRouter>
       <Link to='/'>Home</Link>
-      <NavLink />
+      <NavLinks />
       <Routes>
         <Route path='/profile/:id' element={<Profile />} />
         <Route path='/profile' element={<Profile />} />

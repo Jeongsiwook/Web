@@ -6,11 +6,12 @@
 - HTML
 - CSS
   - BootStrap
-  - Sass
   - styled-components
+  - SCSS
 - JavaScript
 - TypeScript
 - React.js
+- Bundler
 
 ### Back-End
 - Express.js

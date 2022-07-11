@@ -72,3 +72,33 @@ hi = {
 
 3. Hoisting  
    let과 같음.
+
+# 함수 호출 방법
+
+## call-by-value
+
+객체를 제외한 변수 적용.
+
+```js
+var a = 5;
+var b;
+b = a;
+a = 3;
+console.log(a); // 3
+console.log(b); // 5
+```
+
+## call-by-reference
+
+객체 적용.
+
+```js
+let c = { greeting: 'Welcome' };
+let d;
+d = c;
+
+// Mutating the value of c
+c.greeting = 'Welcome to geeksforgeeks';
+console.log(c); // {greeting: 'Welcome to geeksforgeeks'}
+console.log(d); // {greeting: 'Welcome to geeksforgeeks'}
+```

@@ -102,3 +102,45 @@ c.greeting = 'Welcome to geeksforgeeks';
 console.log(c); // {greeting: 'Welcome to geeksforgeeks'}
 console.log(d); // {greeting: 'Welcome to geeksforgeeks'}
 ```
+
+# 실행 컨텍스트
+
+# this
+
+# 클로저
+
+# 이벤트 루프
+
+## Event Bubbling
+
+## Capturing Delegation
+
+# Promise
+
+# Async/Await
+
+## 예외처리 까다로운
+
+# 원시 값
+
+# 가비지 컬렉션 알고리즘
+
+# Date 객체 현재 시간은 실제 시간과 차이가 있을 수 있고, moment를 쓰면 그걸 보상할 수 있는데 왜?
+
+# 함수 객체
+
+함수 객체는 일반 객체와 동일한 비교 원칙을 따름.  
+함수 객체는 오직 자신에게만 동일.
+
+```js
+function sumFactory() {
+  return (a, b) => a + b;
+}
+
+const sum1 = sumFactory();
+const sum2 = sumFactory();
+
+console.log(sum1 === sum2); // => false
+console.log(sum1 === sum1); // => true
+console.log(sum2 === sum2); // => true
+```

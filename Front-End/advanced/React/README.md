@@ -1,3 +1,14 @@
+# React
+
+페이스북에서 만든 오픈소스 JS 라이브러리.
+
+## 장점
+
+- 이미 만들어진 컴포넌트들을 사용할 수 있음
+- 페이스북이라는 대기업의 지원을 받음
+
+## 단점
+
 # Virtual-DOM
 
 UI의 가상적인 표현을 메모리에 저장하고, ReactDOM과 같은 라이브러리에 의해 실제 DOM과 동기화.  
@@ -35,6 +46,8 @@ element의 태그 또는 컴포넌트가 변경된 경우, 해당 노드를 포�
 
 # 렌더링 최적화 관련
 
+같은 props로 렌더링이 자주 일어나는 컴포넌트에서 사용.
+
 ## useMemo
 
 계산된 값을 메모제이션된 값을 반환하여, 재렌더링 시 불필요한 연산을 줄임.
@@ -57,8 +70,6 @@ const Info = ({ color, movie }) => {
 
 메모리제이션 된 함수를 반환하여, 컴포넌트가 재렌더링될 때 불필요하게 함수가 다시 생성되는 것을 방지.
 
-- `useMemo(() => fn, deps)`와 `useCallback(fn, deps)`은 같음
-
 ```jsx
 const App = () => {
   // 기존
@@ -75,6 +86,71 @@ const App = () => {
 };
 ```
 
-## useCallback
+하위 컴포넌트가 `React.memo()` 같은 것으로 최적화 되어 있고 그 하위 컴포넌트에게 callback 함수를 props로 넘길 때, 상위 컴포넌트에서 useCallback으로 함수를 선언하는 것이 유용함.  
+함수가 매번 재선언되면 하위 컴포넌트는 넘겨 받은 함수가 달라졌다고 인식하기 때문.
+
+- `React.memo()`로 함수형 컴포넌트 자체를 감싸면 넘겨 받는 props가 변경되지 않았을 때는 상위 컴포넌트가 메모리제이션된 함수형 컴포넌트를 사용하게 됨
+- 함수는 오로지 자기 자신만이 동일하기 때문에 상위 컴포넌트에서 callback함수를 (같은 함수이더라도) 재선언한다면 props로 callback 함수를 넘겨 받는 하위 컴포넌트 입장에서는 props가 변경 되었다고 인식함
+- 해결하기 위해서 useCallback()을 이용해서 콜백 인스턴스를 보존
+
+```js
+function Logout({ username, onLogout }) {
+  return <div onClick={onLogout}>Logout {username}</div>;
+}
+
+const MemoizedLogout = React.memo(Logout);
+
+// 메모리제이션 중단 예제
+function MyApp({ store, cookies }) {
+  return (
+    <div className='main'>
+      <header>
+        <MemoizedLogout
+          username={store.username}
+          onLogout={() => cookies.clear()}
+        />
+      </header>
+      {store.content}
+    </div>
+  );
+}
+
+// 메모리제이션 정상 예제
+const MemoizedLogout = React.memo(Logout);
+
+function MyApp({ store, cookies }) {
+  const onLogout = useCallback(() => {
+    cookies.clear();
+  }, []);
+  return (
+    <div className='main'>
+      <header>
+        <MemoizedLogout username={store.username} onLogout={onLogout} />
+      </header>
+      {store.content}
+    </div>
+  );
+}
+```
 
 # 리렌더링 되는 조건
+
+## state
+
+setState() 메서드를 이용해서 state 값의 변경이 감지되면 리렌더링 됨.
+
+## props
+
+전달받은 props 값이 업데이트 되었다면 렌더링 됨.
+
+## 부모 컴포넌트
+
+새로운 prop이 들어오지 않더라도, 부모 컴포넌트가 리렌더링 된다면 자식 컴포넌트 역시 리렌더링 됨.
+
+## shouldComponentUpdate
+
+컴포넌트에 shouldComponentUpdate 메소드의 return value를 false로 지정하면 리렌더링 되는 상황을 막음.
+
+## forceUpdate
+
+`this.forceUpdate()`를 사용하면 강제 리렌더링을 할 수 있음.
